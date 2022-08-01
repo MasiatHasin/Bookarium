@@ -1,0 +1,12 @@
+User-agent: *
+Disallow:
+
+:root {
+    --col1: #898AA6;
+    --col2: #f7f5f2;
+    --col3: #ffffff;
+    --col4: #D3CEDF;
+    --red: #EB1D36;
+    --green: #019267;
+    --blue: #86C6F4;
+}
