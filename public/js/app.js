@@ -6,16 +6,16 @@ window.setTimeout(function () {
 }, 3000);
 
 //reload once
-function loadAgain(route) {
-    setTimeout(function () {
-        if (localStorage.justOnce == "false") {
-            localStorage.setItem("justOnce", "true");
-            window.location.replace(route);
-        }
-        else {
-            localStorage.setItem("justOnce", "false");
-        }
-    }, 1000);
+function loadAgain(page) {
+    setTimeout(function() {
+    if (localStorage.justOnce != "true") {
+        localStorage.setItem("justOnce", "true");
+        window.location.replace("/bookarium"+page);
+    }
+    else {
+        localStorage.setItem("justOnce", "false");
+    }
+}, 1000);
 }
 
 
@@ -68,4 +68,33 @@ function apply2all(array, property) {
     for (i = 0; i < array.length; i++) {
         array[i].classList.toggle(property);
     }
+}
+
+//Advanced search Genre include exclude display and functionality
+function checkbox(id){
+    if (document.getElementById(id+'plus').style.display=="none" && document.getElementById(id+'minus').style.display=="none"){
+        document.getElementById(id+'plus').style.display="block";
+        document.getElementById(id).value="plus";
+        document.getElementById(id+'box').style.backgroundColor="#7FB5FF";
+        document.getElementById(id+'box').style.borderColor="#7FB5FF";
+    }
+    else if (document.getElementById(id+'plus').style.display=="block" && document.getElementById(id+'minus').style.display=="none"){
+        document.getElementById(id+'minus').style.display="block";
+        document.getElementById(id+'plus').style.display="none";
+        document.getElementById(id).value="minus";
+        document.getElementById(id+'box').style.backgroundColor="#7FB5FF";
+        document.getElementById(id+'box').style.borderColor="#7FB5FF";
+    }
+    else if (document.getElementById(id+'minus').style.display=="block" && document.getElementById(id+'plus').style.display=="none"){
+        document.getElementById(id+'minus').style.display="none";
+        document.getElementById(id+'box').style.backgroundColor="transparent";
+        document.getElementById(id+'box').style.borderColor="grey";
+        document.getElementById(id).value="";
+    }
+}
+
+//Advanced search filter by rating display
+function rate(rating){
+    rating = (rating/5)*100;
+    document.getElementById('rating-advanced').style.width=rating+"%";
 }

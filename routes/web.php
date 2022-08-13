@@ -26,3 +26,9 @@ Route::get('/bookarium/user/change_settings', [App\Http\Controllers\SettingsCont
 Route::get('/bookarium/user/request', [App\Http\Controllers\RequestController::class, 'index'])->name('request');
 Route::post('/bookarium/user/sendrequest', [App\Http\Controllers\RequestController::class, 'sendrequest'])->name('sendrequest');
 Route::get('/bookarium/user/orders', [App\Http\Controllers\OrderController::class, 'orders'])->name('orders');
+Route::post('/bookarium/search', [App\Http\Controllers\BookController::class, 'search'])->name('search');
+Route::post('/bookarium/discover', [App\Http\Controllers\BookController::class, 'discover'])->name('discover');
+Route::get('/bookarium/user/cart', [App\Http\Controllers\CartController::class, 'cart'])->name('cart');
+Route::post('/bookarium/user/add2cart', [App\Http\Controllers\CartController::class, 'add'])->name('add2cart');
+Route::get('/bookarium/user/remove4cart', [App\Http\Controllers\CartController::class, 'remove'])->name('remove4cart');
+Route::post('/bookarium/user/payment', [App\Http\Controllers\CartController::class, 'payment'])->name('payment');

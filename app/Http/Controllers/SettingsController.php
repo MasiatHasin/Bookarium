@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\user;
 use App\Models\Order;
 use App\Models\Request1;
+use App\Models\Cart;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -71,19 +72,20 @@ class SettingsController extends Controller
                     Order::where('email' , Auth::user()->email)->update(['email'=> $mail]);
                     User::where('email' , Auth::user()->email)->update(['email'=> $mail]);
                     Request1::where('email' , Auth::user()->email)->update(['email'=> $mail]);
+                    Cart::where('email' , Auth::user()->email)->update(['email'=> $mail]);
                     $change = 1;
                 }
                 if ($request->has('house') && $house != Auth::user()->house) {
-                    Order::where('email' , Auth::user()->email)->update(['house'=> $house]);
+                    User::where('email' , Auth::user()->email)->update(['house'=> $house]);
                 }
                 if ($request->has('area') && $area != Auth::user()->thana) {
                     User::where('email' , Auth::user()->email)->update(['thana'=> $area]);
                 }
                 if ($request->has('city') && $city != Auth::user()->city) {
-                    Order::where('email' , Auth::user()->email)->update(['city'=> $city]);
+                    User::where('email' , Auth::user()->email)->update(['city'=> $city]);
                 }
                 if ($request->has('phone') && $uname != Auth::user()->phone) {
-                    Order::where('email' , Auth::user()->email)->update(['phone'=> $phone]);
+                    User::where('email' , Auth::user()->email)->update(['phone'=> $phone]);
                 }
                 if ($change == 0) {
                     //if password wasn't changed, simply redirect back

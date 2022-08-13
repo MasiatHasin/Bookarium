@@ -31,6 +31,7 @@ class HomeController extends Controller
     {
         //Show all books in the database in the homepage
         $books = Book::orderBy('Title', 'ASC')->get();
-        return view('bookarium', ['books' => $books]);
+        $genre = (new BookController)->getGenre();
+        return view('bookarium', ['books' => $books ,'genre' => $genre]);
     }
 }

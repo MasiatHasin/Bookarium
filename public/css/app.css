@@ -9,9 +9,10 @@
     --redDark: #FF8B8B;
     --green: #019267;
     --greenDark: #C4DFAA;
-    --blue: #86C6F4;
+    --blue: #7FB5FF;
     --blurple: #a3c0f5;
     --blurple_hover:  #B1BCE6;
+    
 }
 
 body{
@@ -142,6 +143,18 @@ table, th, td, tr{
 }
 
 .rating {
+    display: inline-block;
+    unicode-bidi: bidi-override;
+    color: #888888;
+    font-size: 16px;
+    height: 16px;
+    width: auto;
+    margin: -1px;
+    position: relative;
+    padding: 0;
+}
+
+.rating2 {
     display: inline-block;
     unicode-bidi: bidi-override;
     color: #888888;
