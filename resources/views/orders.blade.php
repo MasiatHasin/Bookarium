@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+@if (count($new_orders)>0)
     <!--Show current orders: Covers, Price, Date of order, status, estimated date of delivery-->
     <div class="row justify-content-center">
         <div class="col">
@@ -48,7 +49,9 @@
             </div>
         </div>
     </div>
+    @endif
 
+    @if (count($past_orders)>0)
     <!--Show past orders: Covers, Price, Date of order and delivery -->
     <div class="row justify-content-center">
         <div class="col">
@@ -91,5 +94,6 @@
             </div>
         </div>
     </div>
+    @endif
 </div>
 @endsection

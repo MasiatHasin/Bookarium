@@ -100,8 +100,5 @@
         </div>
     </div>
     @endif
-    <script>
-        loadAgain('/user/cart')
-    </script>
 </div>
 @endsection

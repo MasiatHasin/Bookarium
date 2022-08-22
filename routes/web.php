@@ -32,3 +32,6 @@ Route::get('/bookarium/user/cart', [App\Http\Controllers\CartController::class, 
 Route::post('/bookarium/user/add2cart', [App\Http\Controllers\CartController::class, 'add'])->name('add2cart');
 Route::get('/bookarium/user/remove4cart', [App\Http\Controllers\CartController::class, 'remove'])->name('remove4cart');
 Route::post('/bookarium/user/payment', [App\Http\Controllers\CartController::class, 'payment'])->name('payment');
+Route::post('/bookarium/books/{isbn}/postreview', [App\Http\Controllers\ReviewController::class, 'postReview'])->name('postReview');
+Route::post('/bookarium/books/{isbn}/editreview', [App\Http\Controllers\ReviewController::class, 'editReview'])->name('editReview');
+Route::post('/bookarium/books/{isbn}/deletereview', [App\Http\Controllers\ReviewController::class, 'deleteReview'])->name('deleteReview');

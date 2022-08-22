@@ -12626,8 +12626,8 @@ fieldset:disabled .btn {
 
 .btn-primary {
     color: #212529;
-    background: -webkit-linear-gradient(to right, #9BA3EB, #7FB5FF);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #9BA3EB, #7FB5FF ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: -webkit-linear-gradient(to right, #7FB5FF, #89CFFD);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #7FB5FF, #89CFFD ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     border-color: #7FB5FF;
 }
 

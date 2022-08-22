@@ -34,9 +34,8 @@ class OrderController extends Controller
             $books2 = explode(' ', $b);
             $titles = [];
             foreach ($books2 as $b2) {
-                $search = Book::where('ID', $b2)->get();
-                $search2 = collect($search)->pluck('ISBN')->toArray();
-                array_push($titles, $search2[0]);
+                $ISBN = Book::where('ID', $b2)->value('ISBN');
+                array_push($titles, $ISBN);
             }
             array_push($titles2, $titles);
         }

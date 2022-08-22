@@ -1,7 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container s-12">
+<div class="container">
+@if(session()->has('cred-update'))
+<div class="alert alert-danger text-center">
+    {{ session()->get('cred-update') }}
+</div>
+@endif
     <form action="{{ route('search') }}" method="post" class="s-14">
         Search
         @csrf
@@ -69,7 +74,7 @@
                             Rating<br>
                             <div class="rating2">
                                 <div id="rating-advanced" class="rating-upper" style="width: 0%; font-size: 20px;">
-                                    @for ($i=1; $i<6; $i++) <input onclick="rate('{{$i}}');" style="display:none;" class="checkbox" id="star{{$i}}" type="radio" name="rating" value="{{$i}}">
+                                    @for ($i=1; $i<6; $i++) <input onclick="rate('{{$i}}', 'rating-advanced');" style="display:none;" class="checkbox" id="star{{$i}}" type="radio" name="rating" value="{{$i}}">
                                         <label for="star{{$i}}">★</label>
                                         @endfor
                                 </div>
@@ -84,9 +89,9 @@
                         <div class="col-md-3 col-3">
                             Year
                             <select class="form-select" name="year" style="width: 100px !important;">
-                                @for ($i=1800; $i<=2022; $i+=10)
-                            <option value="{{$i}}">{{$i}}s</option>
-                            @endfor
+                            <option value=""></option>
+                                @for ($i=1800; $i<=2022; $i+=10) <option value="{{$i}}">{{$i}}s</option>
+                                    @endfor
                             </select>
                         </div>
 
@@ -117,7 +122,7 @@
     </form>
 
     @foreach($books->chunk(6) as $chunk)
-    <div class="row justify-content-center mt-3">
+    <div class="row justify-content-center mt-3 s-12">
         @foreach ($chunk as $book)
         <div class="col-md-4 col-sm-4 col-xs-6 col-lg-2 mb-4">
             <div class="card shadow-sm border-0 h-100">

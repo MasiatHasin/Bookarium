@@ -30,8 +30,10 @@ class BookController extends Controller
     {
         $books = Book::where('ISBN', $isbn)->get();
         $similar = $this->getSimilar($isbn);
-        $review = (new ReviewController)->getReview($isbn);
-        return view('info', ['books' => $books, 'similar' => $similar, 'review' => $review]);
+        $reviewInfo = (new ReviewController)->getReview($isbn);
+        $review = $reviewInfo[0];
+        $delivered = $reviewInfo[1];
+        return view('info', ['books' => $books, 'similar' => $similar, 'review' => $review, 'delivered' => $delivered]);
     }
 
     public function getSimilar($isbn)
@@ -81,6 +83,7 @@ class BookController extends Controller
         if (count($books) > 0) {
             return view('search', ['books' => $books]);
         } else {
+            //Checking Author
             $books = Book::where('Author', $search)->get();
             if (count($books) > 0) {
                 return view('search', ['books' => $books]);
@@ -158,8 +161,8 @@ class BookController extends Controller
         }
 
         if ($request->has('year') && $year != "") {
-            $year = substr($year, 0, -1);
-            $books = $books->whereRaw("Year LIKE '" . $year . "_%'");
+            $year2 = substr($year, 0, -1);
+            $books = $books->whereRaw("Year LIKE '" . $year2 . "_%'");
             array_push($query, $year);
             array_push($type, 'Year');
         }

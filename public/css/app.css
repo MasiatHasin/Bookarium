@@ -268,7 +268,10 @@ summary::-webkit-details-marker {
     cursor: pointer;
 }
 
-
 .credits {
     display: none;
 }
+
+[contenteditable] {
+    outline: 0px solid transparent;
+  }

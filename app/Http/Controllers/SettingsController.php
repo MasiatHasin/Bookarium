@@ -7,6 +7,7 @@ use App\Models\user;
 use App\Models\Order;
 use App\Models\Request1;
 use App\Models\Cart;
+use App\Models\Review;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -66,13 +67,15 @@ class SettingsController extends Controller
                 //Update information only if inputted and new
                 if ($request->has('uname') && $uname != Auth::user()->name) {
                     User::where('email' , Auth::user()->email)->update(['name'=> $uname]);
+                    Review::where('email' , Auth::user()->email)->update(['Name'=> $uname]);
                 }
                 if ($request->has('mail') && $mail != Auth::user()->email) {
                     //updating email in all database records 
-                    Order::where('email' , Auth::user()->email)->update(['email'=> $mail]);
-                    User::where('email' , Auth::user()->email)->update(['email'=> $mail]);
-                    Request1::where('email' , Auth::user()->email)->update(['email'=> $mail]);
-                    Cart::where('email' , Auth::user()->email)->update(['email'=> $mail]);
+                    Order::where('Email' , Auth::user()->email)->update(['Email'=> $mail]);
+                    Review::where('Email' , Auth::user()->email)->update(['Email'=> $mail]);
+                    User::where('Email' , Auth::user()->email)->update(['Email'=> $mail]);
+                    Request1::where('Email' , Auth::user()->email)->update(['Email'=> $mail]);
+                    Cart::where('Email' , Auth::user()->email)->update(['Email'=> $mail]);
                     $change = 1;
                 }
                 if ($request->has('house') && $house != Auth::user()->house) {
@@ -92,9 +95,8 @@ class SettingsController extends Controller
                     return redirect()->back()->with(['settings-success' => 'Settings successfully updated']);
                 } else {
                     //if password was changed, user is logged out for security and session is reset
-                    $request->session()->invalidate();
-                    $request->session()->regenerateToken();
-                    return redirect('/');
+                    Auth::logout();
+                    return redirect('/bookarium')->with(['cred-update' => 'User credentials have been updated. Please log back in']);
                 }
             } else {
                 //Send an error message if password don't match
