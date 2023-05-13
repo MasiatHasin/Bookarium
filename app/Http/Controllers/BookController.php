@@ -75,6 +75,17 @@ class BookController extends Controller
         return $test2;
     }
 
+    public function getLanguage()
+    {
+        $test =  Book::all();
+        $test2 = [];
+        foreach ($test as $t) {
+            array_push($test2, trim($t->Language));
+        }
+        $test2 = array_unique($test2);
+        return $test2;
+    }
+
     public function search(Request $request)
     {
         $search = $request->input('search');
@@ -110,49 +121,68 @@ class BookController extends Controller
     public function discover(Request $request)
     {
         $genre = $this->getGenre();
+        $lan = $this->getLanguage();
         $books = Book::query();
-        $lan =  $request->input('lan');
         $rating =  $request->input('rating');
         $year =  $request->input('year');
         $sort =  $request->input('sort');
-        $contain = [];
-        $exclude = [];
+        $containGen = [];
+        $excludeGen = [];
+        $containLan = [];
+        $excludeLan = [];
         $type = [];
         $query = [];
 
         foreach ($genre as $g) {
             if ($request->input($g) == "plus") {
                 $books = $books->whereRaw("Genre regexp '\\\b" . $g . "\\\b'");
-                array_push($contain, $g);
+                array_push($containGen, $g);
             } else if ($request->input($g) == "minus") {
                 $books = $books->whereRaw("Genre not regexp '\\\b" . $g . "\\\b'");
-                array_push($exclude, $g);
+                array_push($excludeGen, $g);
             }
         }
 
-        if (count($contain) > 0 || count($exclude) > 0) {
+        if (count($containGen) > 0 || count($excludeGen) > 0) {
             array_push($type, 'Genre');
         }
 
-        $contain = implode(", ", $contain);
-        $exclude = implode(", ", $exclude);
+        $containGen = implode(", ", $containGen);
+        $excludeGen = implode(", ", $excludeGen);
 
-        if (strlen($contain) > 0) {
-            array_push($query, $contain);
-            if (strlen($exclude) > 0) {
-                $query[0] = $query[0] . ' and Genre != ' . $exclude;
+        if (strlen($containGen) > 0) {
+            array_push($query, $containGen);
+            if (strlen($excludeGen) > 0) {
+                $query[0] = $query[0] . ' and Genre != ' . $excludeGen;
             }
         } else {
-            if (strlen($exclude) > 0) {
-                array_push($query, ' Genre != ' . $exclude);
+            if (strlen($excludeGen) > 0) {
+                array_push($query, ' Genre != ' . $excludeGen);
             }
         }
 
-        if ($request->has('lan')) {
+        /*if ($request->has('lan')) {
             $books = $books->whereRaw("Language = '" . $lan . "'");
             array_push($query, $lan);
             array_push($type, 'Language');
+        }*/
+
+        foreach ($lan as $l) {
+            if ($request->input($l) == "plus") {
+                $books = $books->orWhere("Language", "=", $l);
+                array_push($containLan, $l);
+            }
         }
+
+        if (count($containLan) > 0) {
+            array_push($type, 'Language');
+        }
+
+        $containLan = implode(", ", $containLan);
+
+        if (strlen($containLan) > 0) {
+            array_push($query, $containLan);
+        } 
 
         if ($request->has('rating') && $rating != "") {
             $books = $books->whereRaw("floor(Rating) = '" . $rating . "'");
@@ -173,6 +203,7 @@ class BookController extends Controller
             array_push($type, 'Sort');
         }
         $books = $books->get();
+        dump($query);
         return view('search', ['books' => $books, 'query' => $query, 'type' => $type]);
     }
 }

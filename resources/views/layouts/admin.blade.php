@@ -9,7 +9,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>BOOKARIUM</title>
+    <title>BOOKARIUM Admin Panel</title>
 
     <!-- Scripts -->
     <script src="/js/jquery.min.js"></script>
@@ -39,7 +39,7 @@
                         @endfor
                 </ul>
                 <div class="container" style="position: absoluite; z-index: 5">
-                    <span style="font-size: 24px; color: white;"><a href="{{url('/bookarium')}}">BOOKARIUM</a></span>
+                    <span style="font-size: 24px; color: white;"><a href="{{url('/bookarium')}}">BOOKARIUM Admin Panel</a></span>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -75,23 +75,6 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('cart')}}">
-
-                                        {{ __('Cart') }}
-                                    </a>
-                                    <a class="dropdown-item" href="{{ route('orders') }}">
-
-                                        {{ __('Orders') }}
-                                    </a>
-                                    <a class="dropdown-item" href="{{ route('request') }}">
-
-                                        {{ __('Request') }}
-                                    </a>
-                                    <a class="dropdown-item" href="{{ route('settings') }}">
-
-                                        {{ __('Settings') }}
-                                    </a>
-                                    <hr class="dropdown-divider">
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}

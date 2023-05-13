@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Request1 extends Model
 {
     use HasFactory;
-    protected $table = 'Requests';
+    protected $table = 'requests';
     public $timestamps = false;
 }
