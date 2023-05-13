@@ -3,19 +3,19 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-
-        @if(session()->has('settings-success'))
-        <div class="alert alert-success text-center w-50 justify-content-center">
+        
+            @if(session()->has('settings-success'))
+            <div class="alert alert-success text-center w-50 justify-content-center">
             {{ session()->get('settings-success') }}
-        </div>
-        @else
-        @if(session()->has('settings-error'))
-        <div class="alert alert-danger text-center w-50 justify-content-center">
+            </div>
+            @else 
+            @if(session()->has('settings-error'))
+            <div class="alert alert-danger text-center w-50 justify-content-center">
             {{ session()->get('settings-error') }}
-        </div>
+            </div>
         @endif
         @endif
-
+        
         <div class="col-md-8">
             <div class="card shadow-sm border-0">
                 <div class="card-header shadow-sm border-0 aqua-gradient">Settings</div>
@@ -40,7 +40,15 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-4  my-auto">
-                                Address
+                                New Password
+                            </div>
+                            <div class="col-md-6">
+                                <input type="password" name="newpass" class="form-control" autocomplete="off" readonly onfocus="this.removeAttribute('readonly');">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4  my-auto">
+                                House and Street
                             </div>
                             <div class="col-md-6">
                                 <input type="text" name="house" class="form-control" autocomplete="off" value="{{Auth::user()->house}}">
@@ -85,21 +93,12 @@
                             <div class="col-md-8">
                                 Enter your existing password to save changes
                                 <div class="input-group input-group-sm">
-                                    <input type="password" name="oldpass" class="form-control @error('oldpass') is-invalid @enderror" class="form-control" required autofocus autocomplete="off" readonly onfocus="this.removeAttribute('readonly');">
+                                    <input type="password" name="oldpass" class="form-control" required autofocus autocomplete="off" readonly onfocus="this.removeAttribute('readonly');">
                                     <div class="input-group-append">
                                         <button class="btn btn-light" type="submit" style="width:80px !important;">Save</button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row mt-2">
-                            @if ($errors->any())
-                            <div class="alert alert-danger">
-                                    @foreach ($errors->all() as $error)
-                                    {{ $error }}<br>
-                                    @endforeach
-                            </div>
-                            @endif
                         </div>
                     </form>
                 </div>

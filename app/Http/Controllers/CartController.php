@@ -40,7 +40,7 @@ class CartController extends Controller
         if ($stock >= $amount) {
             if (Auth::user()->house && Auth::user()->thana && Auth::user()->phone) {
                 for ($i = 0; $i < $amount; $i++) {
-                    Cart::insert(['Email' => Auth::user()->email, 'Title' => $title, 'ISBN' => $isbn, 'Price' => $price]);
+                    Cart::insert(['Email' => Auth::user()->email, 'Title' => $title, 'ISBN' =>$isbn, 'Price' =>$price]);
                 }
                 $this->refreshPrice();
                 return redirect()->back()->with('add-success', 'Added to cart');
@@ -55,34 +55,29 @@ class CartController extends Controller
     public function refreshPrice()
     {
         $books = Book::Join('cart', 'cart.ISBN', '=', 'books.ISBN')->where('Email', Auth::user()->email)->groupBy('cart.ISBN')->get();
-        if (count($books)) {
-            $areas = ["Uttara" => "18", "Mirpur" => "11", "Pallabi" => "13", "Kazipara" => "9", "Kafrul" => "8", "Agargaon" => "8", "Sher-e-Bangla Nagar" => "7", "Cantonment area" => "1", "Banani" => "8", "Gulshan" => "9", "Mohakhali" => "7", "Bashundhara" => "3", "Banasree" => "6", "Baridhara" => "9", "Uttarkhan" => "24", "Dakshinkhan" => "18", "Bawnia" => "14", "Khilkhet" => "18", "Tejgaon" => "4", "Farmgate" => "4", "Mohammadpur" => "8", "Rampura" => "7", "Badda" => "9", "Satarkul" => "10", "Beraid" => "14", "Khilgaon" => "4", "Vatara" => "11", "Gabtali" => "11", "Sadarghat" => "6", "Hazaribagh" => "5", "Dhanmondi" => "3", "Ramna" => "1", "Motijheel" => "5", "Sabujbagh" => "5", "Lalbagh" => "4", "Kamalapur" => "6", "Kamrangirchar" => "4", "Islampur" => "10", "Wari" => "4", "Kotwali" => "4", "Sutrapur" => "5", "Jurain" => "8", "Dania" => "8", "Demra" => "16", "Shyampur" => "9", "Nimtoli" => "3", "Matuail" => "11", "Shahbagh" => "2", "Paltan" => "2"];
-            $place = Auth::user()->thana;
-            $delivery = $areas[$place] * 5;
-            foreach ($books as $b) {
-                $orgBooks = Book::where('ISBN', $b->ISBN)->first();
-                if ($b->Sale > 0) {
-                    $newPrice = $orgBooks->Price - (($orgBooks->Sale / 100) * $orgBooks->Price);
-                    Cart::where('ISBN', $b->ISBN)->update(['Price' => $newPrice]);
-                } else {
-                    Cart::where('ISBN', $b->ISBN)->update(['Price' => $orgBooks->Price]);
-                }
+        $areas = ["Uttara" => "18", "Mirpur" => "11", "Pallabi" => "13", "Kazipara" => "9", "Kafrul" => "8", "Agargaon" => "8", "Sher-e-Bangla Nagar" => "7", "Cantonment area" => "1", "Banani" => "8", "Gulshan" => "9", "Mohakhali" => "7", "Bashundhara" => "3", "Banasree" => "6", "Baridhara" => "9", "Uttarkhan" => "24", "Dakshinkhan" => "18", "Bawnia" => "14", "Khilkhet" => "18", "Tejgaon" => "4", "Farmgate" => "4", "Mohammadpur" => "8", "Rampura" => "7", "Badda" => "9", "Satarkul" => "10", "Beraid" => "14", "Khilgaon" => "4", "Vatara" => "11", "Gabtali" => "11", "Sadarghat" => "6", "Hazaribagh" => "5", "Dhanmondi" => "3", "Ramna" => "1", "Motijheel" => "5", "Sabujbagh" => "5", "Lalbagh" => "4", "Kamalapur" => "6", "Kamrangirchar" => "4", "Islampur" => "10", "Wari" => "4", "Kotwali" => "4", "Sutrapur" => "5", "Jurain" => "8", "Dania" => "8", "Demra" => "16", "Shyampur" => "9", "Nimtoli" => "3", "Matuail" => "11", "Shahbagh" => "2", "Paltan" => "2"];
+        $place = Auth::user()->thana;
+        $delivery = $areas[$place] * 5;
+        foreach ($books as $b) {
+            $orgBooks = Book::where('ISBN', $b->ISBN)->first();
+            if ($b->Sale > 0) {
+                $newPrice = $orgBooks->Price - (($orgBooks->Sale / 100) * $orgBooks->Price);
+                Cart::where('ISBN' , $b->ISBN)->update(['Price'=> $newPrice]);
+            } else {
+                Cart::where('ISBN' , $b->ISBN)->update(['Price'=> $orgBooks->Price]);
             }
-            $sum = Cart::where('Email', [Auth::user()->email])->selectRaw('sum(Price)')->value('sum(Price)');
-            $totalPrice = $sum + $delivery;
-            Cart::where('Email', Auth::user()->email)->update(['TotalPrice' => $totalPrice]);
-            return ([$sum, $delivery, $totalPrice]);
         }
-        else{
-            return ([0,0,0]);
-        }
+        $sum = Cart::where('Email', [Auth::user()->email])->selectRaw('sum(Price)')->value('sum(Price)');
+        $totalPrice = $sum + $delivery;
+        Cart::where('Email' , Auth::user()->email)->update(['TotalPrice'=>$totalPrice]);
+        return ([$sum, $delivery, $totalPrice]);
     }
 
     public function remove(Request $request)
     {
         $isbn =  $request->input('isbn');
         $id =  $request->input('id');
-        Cart::where('ISBN', $isbn)->where('ID', $id)->delete();
+        Cart::where('ISBN' , $isbn)->where('ID', $id)->delete();
         return redirect()->back();
     }
 
@@ -97,7 +92,7 @@ class CartController extends Controller
             if ($count > $stock) {
                 $diff = $count - $stock;
                 for ($i = 0; $i < $diff; $i++) {
-                    Cart::where('ISBN', $q->ISBN)->whereRaw('ID = (select Min(ID) from cart where ISBN =' . $q->ISBN . ')')->delete();
+                    Cart::where('ISBN' , $q->ISBN)->whereRaw('ID = (select Min(ID) from cart where ISBN ='.$q->ISBN.')')->delete();
                 }
                 $removedBooks = 1;
             }
@@ -118,17 +113,17 @@ class CartController extends Controller
         $date2 = strtotime($date);
         $probDate = strtotime("+7 day", $date2);
         $probDate = date("Y-m-d", $probDate);
-        $books = Book::Join('cart', 'cart.ISBN', '=', 'books.ISBN')->selectRaw('books.ID as ID, books.ISBN as ISBN')->where('Email', Auth::user()->email)->get();
+        $books = Book::Join('cart', 'cart.ISBN', '=', 'books.ISBN')->selectRaw('books.ID as ID')->where('Email', Auth::user()->email)->get();
         $booklist = "";
         foreach ($books as $b) {
             $booklist = $booklist . "$b->ID" . " ";
         }
         $booklist = substr($booklist, 0, -1);
-        Order::insert(['Email' => Auth::user()->email, 'Books' => $booklist, 'Price' => $charge, 'Date_Ordered' => $date, 'Probable_Date_Delivery' => $probDate, 'Status' => 'Awaiting Confirmation', 'Delivered' => '0']);
+        Order::insert(['Email' => Auth::user()->email, 'Books' => $booklist, 'Price' => $charge, 'Date_Ordered' => $date, 'Probable_Date_Delivery' => $probDate, 'Status'=> 'Awaiting Confirmation', 'Delivered' => '0']);
         $bought = collect($books)->pluck('ISBN')->toArray();
         foreach ($bought as $b) {
             $stock = Book::where('ISBN', $b)->value('Stock');
-            Book::where('ISBN', $b)->update(['Stock' => $stock - 1]);
+            Book::where('ISBN', $b)->update(['Stock'=> $stock-1]);
         }
         Cart::where('Email', Auth::user()->email)->delete();
         return redirect()->to('bookarium/user/cart');

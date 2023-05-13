@@ -2,11 +2,11 @@
 
 @section('content')
 <div class="container">
-    @if(session()->has('cred-update'))
-    <div class="alert alert-danger text-center">
-        {{ session()->get('cred-update') }}
-    </div>
-    @endif
+@if(session()->has('cred-update'))
+<div class="alert alert-danger text-center">
+    {{ session()->get('cred-update') }}
+</div>
+@endif
     <form action="{{ route('search') }}" method="post" class="s-14">
         Search
         @csrf
@@ -58,18 +58,15 @@
                     <div class="row">
                         <div class="col-md-3 col-5">
                             Language<br>
-                            @foreach ($lan as $l)
-                            <span onclick='checkbox2("{{$l}}");' style="font-size: 14px;" width="50px !important;">
-                                <span id="{{$l}}box" style="width: 16px !important; height: 16px !important; position: relative; top: 2px;  padding-left: 1px; padding-top: 1px; border:solid grey 1px; display: inline-block;">
-                                    <svg style="display: none;" id="{{$l}}plus" width="12px" height="12px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                                        <!--! Font Awesome Pro 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                                        <path d="M432 256c0 17.69-14.33 32.01-32 32.01H256v144c0 17.69-14.33 31.99-32 31.99s-32-14.3-32-31.99v-144H48c-17.67 0-32-14.32-32-32.01s14.33-31.99 32-31.99H192v-144c0-17.69 14.33-32.01 32-32.01s32 14.32 32 32.01v144h144C417.7 224 432 238.3 432 256z" />
-                                    </svg>
-                                </span>
-                                <input class="checkbox" id="{{$l}}" type="checkbox[]" value="" name="{{$l}}" style="display:none" />
-                                <label>@php $L = ucfirst($l) @endphp {{$L}}</label>
-                            </span>
-                            @endforeach
+                            <div class="p-1">
+
+                                <input class="checkbox" id="bangla" type="radio" name="lan" value="Bengali">
+                                <label for="bangla">Bangla</label>
+
+
+                                <input class="checkbox" id="english" type="radio" name="lan" value="English">
+                                <label for="english">English</label>
+                            </div>
 
                         </div>
 
@@ -77,7 +74,7 @@
                             Rating<br>
                             <div class="rating2">
                                 <div id="rating-advanced" class="rating-upper" style="width: 0%; font-size: 20px;">
-                                    @for ($i=1; $i<6; $i++) <input onclick="rate('{{$i}}');" style="display:none;" class="checkbox" id="star{{$i}}" type="radio" name="rating" value="{{$i}}">
+                                    @for ($i=1; $i<6; $i++) <input onclick="rate('{{$i}}', 'rating-advanced');" style="display:none;" class="checkbox" id="star{{$i}}" type="radio" name="rating" value="{{$i}}">
                                         <label for="star{{$i}}">★</label>
                                         @endfor
                                 </div>
@@ -91,11 +88,11 @@
 
                         <div class="col-md-3 col-3">
                             Year
-                            <ul class="list-group list-group-horizontal position-relative overflow-auto w-75" style="cursor: pointer;">
-                                @for ($i=1800; $i<=2022; $i+=10) <li class="list-group-item" onclick='selectYear("{{$i}}");' id="year{{$i}}">{{$i}}s</li>
+                            <select class="form-select" name="year" style="width: 100px !important;">
+                            <option value=""></option>
+                                @for ($i=1800; $i<=2022; $i+=10) <option value="{{$i}}">{{$i}}s</option>
                                     @endfor
-                                    <input style="display:none;" id="year" type="button" value="" name="year" style="display:none" />
-                            </ul>
+                            </select>
                         </div>
 
                         <div class="col-md-4 col-12">
@@ -134,7 +131,7 @@
                         <!--Book cover, sale banner, Title, Author, Rating, Stock-->
                         <div class="col-md-12 d-flex justify-content-center">
                             <a class="s-14" href="{{ route('info', ['isbn' => $book->ISBN]) }}">
-                                <img class="cover" src="{{ url('storage/books/'.$book->ISBN.'.jpg') }}">
+                                <img class="cover" src="/images/books/{{$book->ISBN}}.jpg">
                             </a>
                         </div>
                         @if ($book->Sale>0)

@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Cart extends Model
 {
     use HasFactory;
-    protected $table = 'cart';
+    protected $table = 'Cart';
     public $timestamps = false;
 }

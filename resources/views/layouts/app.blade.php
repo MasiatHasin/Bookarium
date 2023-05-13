@@ -33,11 +33,7 @@
     <div class="page-container">
         <div class="content-wrap">
             <nav class="navbar navbar-expand shadow-sm" style="min-height:80px;">
-                <ul class="circles">
-                    @for ($i=0; $i<=10; $i++) <li>
-                        </li>
-                        @endfor
-                </ul>
+
                 <div class="container" style="position: absoluite; z-index: 5">
                     <span style="font-size: 24px; color: white;"><a href="{{url('/bookarium')}}">BOOKARIUM</a></span>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">

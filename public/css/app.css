@@ -15,105 +15,6 @@
     
 }
 
-.circles {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
-
-.circles li {
-    position: absolute;
-    display: block;
-    list-style: none;
-    width: 20px;
-    height: 20px;
-    background: rgba(255, 255, 255, 0.2);
-    animation: animate 25s linear infinite;
-    bottom: -150px;
-
-}
-
-.circles li:nth-child(1) {
-    left: 25%;
-    width: 80px;
-    height: 80px;
-    animation-delay: 0s;
-}
-
-
-.circles li:nth-child(2) {
-    left: 10%;
-    width: 20px;
-    height: 20px;
-    animation-delay: 2s;
-    animation-duration: 12s;
-}
-
-.circles li:nth-child(3) {
-    left: 70%;
-    width: 20px;
-    height: 20px;
-    animation-delay: 4s;
-}
-
-.circles li:nth-child(4) {
-    left: 40%;
-    width: 60px;
-    height: 60px;
-    animation-delay: 0s;
-    animation-duration: 18s;
-}
-
-.circles li:nth-child(5) {
-    left: 65%;
-    width: 20px;
-    height: 20px;
-    animation-delay: 0s;
-}
-
-.circles li:nth-child(6) {
-    left: 75%;
-    width: 110px;
-    height: 110px;
-    animation-delay: 3s;
-}
-
-.circles li:nth-child(7) {
-    left: 35%;
-    width: 150px;
-    height: 150px;
-    animation-delay: 7s;
-}
-
-.circles li:nth-child(8) {
-    left: 50%;
-    width: 25px;
-    height: 25px;
-    animation-delay: 15s;
-    animation-duration: 45s;
-}
-
-.circles li:nth-child(9) {
-    left: 20%;
-    width: 15px;
-    height: 15px;
-    animation-delay: 2s;
-    animation-duration: 35s;
-}
-
-.circles li:nth-child(10) {
-    left: 85%;
-    width: 150px;
-    height: 150px;
-    animation-delay: 0s;
-    animation-duration: 11s;
-}
-
-
-
 body{
     font-family: Inconsolata !important;
     font-size: 14px !important;
@@ -121,10 +22,6 @@ body{
     --background: linear-gradient(to top, rgba(247, 245, 242, 1), rgba(234, 223, 250, 0.5));
     color: #000000 !important;
     min-height: 100vh;
-}
-
-.form1{
-    width: 30px !important;
 }
 
 .btn-custom{
@@ -240,13 +137,6 @@ table, th, td, tr{
     background-color: var(--col3) !important;
 }
 
-.cover3 {
-    width: 20px;
-    height: 34px !important;
-    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .5) !important;
-    background-color: var(--col3) !important;
-}
-
 .cover2 {
     width: 150px;
     height: 252px !important;
@@ -329,40 +219,11 @@ table, th, td, tr{
     transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
 }
 
-.wdp-ribbon-six2 {
-    background: none !important;
-    position: relative;
-    box-sizing: border-box;
-    position: absolute;
-    width: 65px;
-    height: 35px;
-    top: 0px;
-    right: 0px;
-    padding: 0px;
-    overflow: hidden;
-}
-
-.wdp-ribbon-inner-wrap {
-    -ms-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
-    -webkit-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
-    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
-}
-
 .wdp-ribbon-border {
     width: 0;
     height: 0;
     border-right: 65px solid var(--blue);
     border-bottom: 65px solid transparent;
-    z-index: 12;
-    position: relative;
-    top: -20px;
-}
-
-.wdp-ribbon-border2 {
-    width: 0;
-    height: 0;
-    border-right: 65px solid var(--blue);
-    --border-bottom: 35px solid transparent;
     z-index: 12;
     position: relative;
     top: -20px;
@@ -411,16 +272,6 @@ summary::-webkit-details-marker {
     display: none;
 }
 
-.card-header{
-    color:rgba(247, 245, 242, 1) !important;
-}
-
 [contenteditable] {
     outline: 0px solid transparent;
   }
-
-  .submissionfield { width: 90px; height: 390px; border: 1px solid #999999; padding: 5px; }
-
-
-  
-  
