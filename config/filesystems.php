@@ -55,6 +55,8 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'throw' => false,
         ],
+        
+        
 
     ],
 
@@ -70,7 +72,7 @@ return [
     */
 
     'links' => [
-        public_path('storage') => storage_path('app/public'),
+        public_path('books') => storage_path('app/public/books'),
     ],
 
 ];

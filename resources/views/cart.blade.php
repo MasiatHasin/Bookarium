@@ -9,7 +9,6 @@
     @else
     @endif
     @if (count($books))
-
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-8">
             <div class="card">
